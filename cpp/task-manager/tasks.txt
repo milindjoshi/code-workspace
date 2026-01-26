@@ -1,0 +1,3 @@
+1|start learning C++|high|0
+2|daily workout|high|0
+3|clean house|medium|0
