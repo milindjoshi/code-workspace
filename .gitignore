@@ -1,0 +1,53 @@
+# Executables
+*.exe
+*.out
+*.app
+task_manager
+task_manager_db
+
+# Libraries
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+
+#Data files
+tasks.txt
+*.db
+
+# ============================================
+# IDE and Editor Files
+# ============================================
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# ============================================
+# Java / Maven / Spring Boot
+# ============================================
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+.mvn/
+mvnw
+mvnw.cmd
+
+gittoken
+[Help
+*.tmp
