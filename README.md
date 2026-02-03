@@ -37,7 +37,8 @@ Technologies: C++17, PostgreSQL, libpqxx
 3. Spring Boot Task Manager REST API
 Location: java/task-manager-api/
 Production-ready REST API built with Spring Boot and PostgreSQL.
-Features:
+
+**Features:**
 
 RESTful API endpoints for task management
 Spring Data JPA for database operations
@@ -46,8 +47,22 @@ JSON request/response handling
 CRUD operations with proper HTTP methods
 Search and filtering capabilities
 Task statistics endpoint
+Docker containerization for easy deployment
 
-Technologies: Java 17, Spring Boot 3.x, Spring Data JPA, PostgreSQL, Maven
+**Technologies:** Java 17, Spring Boot 3.x, Spring Data JPA, PostgreSQL, Maven
+
+**Quick Start (Docker):** ← Add this section
+```bash
+cd java/task-manager-api
+docker compose up -d --build
+```
+
+**Quick Start (Local):**
+```bash
+cd java/task-manager-api
+./mvnw spring-boot:run
+```
+
 API Endpoints:
 
 GET /api/tasks - Get all tasks
@@ -56,6 +71,8 @@ PUT /api/tasks/{id} - Update task
 DELETE /api/tasks/{id} - Delete task
 GET /api/tasks/stats - Get statistics
 GET /api/tasks/search?keyword=xxx - Search tasks
+
+[Read more →](java/task-manager-api/README.md)
 
 🛠 Technology Stack
 Languages
