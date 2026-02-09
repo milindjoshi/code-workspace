@@ -1,39 +1,51 @@
-import ollama
 import os
+import docx  # The library we just installed
+import re
+import subprocess
+
+def get_text_from_file(path):
+    """Detects file type and extracts plain text."""
+    if path.lower().endswith('.docx'):
+        # Extract text from Word paragraphs
+        doc = docx.Document(path)
+        return "\n".join([para.text for para in doc.paragraphs])
+    else:
+        # Standard text file reading
+        with open(path, 'r', encoding='utf-8') as f:
+            return f.read()
 
 def analyze_document():
-    path = input("Enter the path to the text file: ").strip()
-    full_path = os.path.expanduser(path)
+    path_input = input("Enter the path to the file: ").strip().replace("\\ ", " ")
+    file_path = os.path.expanduser(path_input)
 
-    if not os.path.exists(full_path):
-        print("❌ File not found.")
+    if not os.path.exists(file_path):
+        print(f"❌ File not found: {file_path}")
         return
 
-    with open(full_path, 'r') as f:
-        content = f.read()
+    # Extract the text
+    text = get_text_from_file(file_path)
 
-    # Limit content length to avoid hitting your 2048 token limit in fast-phi
-    content_snippet = content[:4000] 
+    if not text.strip():
+        print("❌ Could not extract any text. The file might be empty or corrupted.")
+        return
 
-    prompt = f"""
-    Analyze the following text:
-    1. Summarize it in 3 bullet points.
-    2. Determine the overall sentiment (Positive, Negative, or Neutral).
-    3. Identify the 3 most important keywords.
-
-    TEXT:
-    {content_snippet}
-    """
-
-    print("\n🔍 Analyzing...")
+    # --- PART A: Word Count & Keywords ---
+    words = re.findall(r'\w+', text.lower())
+    print(f"\n📊 Word Count: {len(words)}")
     
-    # We use 'phi3' or 'fast-phi' here
-    response = ollama.chat(model='fast-phi', messages=[
-        {'role': 'user', 'content': prompt}
-    ])
+    keywords = ["deadline", "payment", "video"]
+    found = {k: text.lower().count(k) for k in keywords}
+    print(f"🔍 Keywords: {found}")
 
-    print("\n--- ANALYSIS RESULTS ---")
-    print(response['message']['content'])
+    # --- PART B: SLM Analysis ---
+    print("\n🤖 Sending to Qwen for summary...")
+    prompt = f"Summarize this Statement of Work and list 3 key deadlines:\n\n{text[:3000]}"
+    
+    result = subprocess.run(
+        ['ollama', 'run', 'qwen2.5-coder:1.5b', prompt],
+        capture_output=True, text=True
+    )
+    print("\n📝 SLM SUMMARY:\n", result.stdout)
 
 if __name__ == "__main__":
     analyze_document()
