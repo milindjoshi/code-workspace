@@ -1,27 +1,53 @@
-# 🤖 Local AI Workspace
+🤖 Local AI Workspace
+A collection of high-performance Python utilities leveraging Local SLMs (Small Language Models) and Ollama to automate developer workflows and document intelligence.
 
-Custom Python tools for interacting with Small Language Models (SLMs) locally. This setup is optimized for CPU-only execution within an Ubuntu Virtual Machine using Ollama.
+🌟 Overview
+This workspace is designed to bring the power of LLMs directly to the local terminal, ensuring data privacy and reducing API costs by using models like Qwen2.5-coder and Llama3.
 
-## 🛠️ Included Tools
+🛠️ The Toolkit
+1. 📂 GDrive RAG Analyzer (gdrive_rag.py)
+Purpose: Semantic search and Q&A across cloud-hosted documents.
 
-### 1. Interactive AI Chat (`chat.py`)
-A real-time, streaming terminal interface for conversation with local models.
-- **Optimized Performance:** Uses `fast-phi` (a custom-tuned Phi-3) for faster response times.
-- **Streaming UI:** Implements token-by-token text generation so you see the AI "thinking" in real-time.
+Key Tech: rclone VFS integration, JSON indexing, Retrieval-Augmented Generation (RAG).
 
-### 2. Multi-Model Code Reviewer (`code_review.py`)
-A specialized tool for analyzing source code from the `~/code-workspace/java` and `~/code-workspace/cpp` directories.
-- **Dual Model Support:** Can be toggled between `fast-phi` (general logic) and `qwen2.5-coder` (deep programming analysis).
-- **Features:** Automated bug detection, logic summarization, and performance optimization tips.
+Use Case: Instantly query SOWs or project docs in Google Drive without manual reading.
 
-## 🏗️ Local Model Configuration
+2. 📄 Document Intelligence (doc_analyzer.py)
+Purpose: Deep analysis and summarization of specific .docx and .txt files.
 
-The following models are used in this workspace:
-* **fast-phi**: A customized version of Microsoft's Phi-3 with a reduced context window (`num_ctx 2048`) to prevent VM RAM stalls.
-* **qwen2.5-coder**: A state-of-the-art SLM trained specifically for code generation and review.
+Key Tech: python-docx parsing, Prompt Engineering.
 
-## 🚀 Quick Start
+Use Case: Extracting legal clauses or action items from long reports.
 
-1. **Activate Environment:**
-   ```zsh
-   source aienv/bin/activate
+3. 💻 Code Reviewer (code_review.py)
+Purpose: Automated static analysis and logic verification.
+
+Key Tech: Zero-shot prompting for bug detection.
+
+Use Case: Identifying security flaws or refactoring opportunities before a commit.
+
+4. 🐚 Shell Assistant (sh_assistant.py)
+Purpose: Natural language to Bash/Zsh command conversion.
+
+Key Tech: Context-aware CLI generation.
+
+Use Case: Rapidly generating complex find, sed, or awk commands.
+
+5. 💬 General Chat (chat.py)
+Purpose: A lightweight, persistent terminal interface for general LLM interaction.
+
+🚀 Getting Started
+Environment Setup:
+
+Bash
+python3 -m venv aienv
+source aienv/bin/activate
+pip install -r requirements.txt
+Configuration:
+Rename .env.example to .env and configure your local paths and model preferences.
+
+Requirements:
+
+Ollama
+
+Rclone (for GDrive integration)
