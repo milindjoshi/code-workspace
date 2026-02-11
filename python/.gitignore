@@ -1,4 +1,6 @@
 aiene
 __pycache__/
 *.pyc
+.env
+*_index.json
 aienv/
